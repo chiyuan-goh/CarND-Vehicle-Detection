@@ -25,13 +25,13 @@ The goals / steps of this project are the following:
 [c_image3]: ./output_images/t4_results.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
----ß
+---
 
-###Histogram of Oriented Gradients (HOG)
+### Histogram of Oriented Gradients (HOG)
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+#### 1. Explain how (and identify where in your code) you extracted HOG features from the training images.
 
 The code for this step is contained in the file `classifier.py` (line 87)
 
@@ -44,13 +44,13 @@ I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
 
-####2. Explain how you settled on your final choice of HOG parameters.
+#### 2. Explain how you settled on your final choice of HOG parameters.
 
 I tried various combinations of parameters, by which I evaluate using 3-fold cross validation. There seems to be relatively little differences around the default values of (2x2 cells per block, 8x8 pixels per cell and 9 orientations). 
 
 I eventually settled on 2x2 CPB, 16X16 PPC and 9 orientations for better computational time, and small feature size.
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 I trained a linear `SVM sklearn.svm.LinearSVC` using the following features:
 
@@ -60,9 +60,9 @@ I trained a linear `SVM sklearn.svm.LinearSVC` using the following features:
 
 These can be found on the function `get_features` (line 145) in the file `src/classifier.py`.
 
-###Sliding Window Search
+### Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 Based on the assumption that detection is run on a flat road, highway(vehicles are sufficiently spaced) scenario, I began the sliding window search on the bottom half of the image.
 
@@ -72,7 +72,7 @@ The parameter for overlapping windows is also decided on a similar basis. I bega
 
 The scale and overlap actually work on tandem. Too many window scales and high overlap increases the number of false positives as well as computation time. On the other hand, lesser windows would mean vehicles are not effectively detected.
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+#### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 There are ~5967 positive images (I only used the data from the KITTI)  and 8900 negative images for training initially. To balance out the classes and ensure equal representation of positive and negative features, I randomly sampled images from the GTI and Udacity dataset. I also used a learning curve to understand whether I need more data samples, or if I am overfitting/underfitting. 
 
@@ -85,11 +85,11 @@ Ultimately, extracting the HOG, histogram and spatially binned color features fr
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](https://drive.google.com/open?id=0Bxtv1dvjqwk7Vk54dXNjVmM2UjQ)
 
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
+#### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
 There are several measures I took in the pipeline to reduce the number of false positives.
 
@@ -99,9 +99,9 @@ There are several measures I took in the pipeline to reduce the number of false 
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 In my implementation, to reduce computational efforts, the sliding window search is limited to the bottom half of the image frame. For a flat road highway scenario (project video), this work well as vehicles are spaced amply from one another. This approach/heuristic might not work well in city driving conditions where cars might be right in front of the ego-vehicle, or where there are downhill/uphill driving.
 
