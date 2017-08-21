@@ -60,9 +60,11 @@ def get_hog_params():
 
 def prepare_img(img, source="BGR"):
     if source == "BGR":
-        return cv2.cvtColor(img, cv2.COLOR_BGR2LUV)
+        return cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
+        #return cv2.cvtColor(img, cv2.COLOR_BGR2LUV)
     elif source == "RGB":
-        return cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
+        return cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
+        #return cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
 
 def color_hist(img, nbins=32):    #bins_range=(0, 256)
     # Compute the histogram of the color channels separately
@@ -250,6 +252,6 @@ def mkclassifier(filename):
 if __name__ == '__main__':
     evaluate_cls()
     #do_gridsearch()
-    mkclassifier("../models/model_liblinear_awesome3.dat")
+    mkclassifier("../models/model_liblinear_ycrcb.dat")
     #do_learning_curve()
 

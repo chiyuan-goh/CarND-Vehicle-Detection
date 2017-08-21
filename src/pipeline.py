@@ -211,7 +211,7 @@ def update_centroids(centroids, labels, n_features, ttl, skipped, dist_threshold
 	return results, centroids, ttl, skipped
 
 
-def process_frame(img, classifier, scaler, process_pool, track_centroids, veh_ttl, skipped_tracks, visualize = False, thres = 1.):
+def process_frame(img, classifier, scaler, process_pool, track_centroids, veh_ttl, skipped_tracks, visualize = False, thres = 1.5):
 	bboxes, scores = find_cars(img, classifier, scaler, process_pool)
 
 	heatmap = np.zeros_like(img[:,:,0])
@@ -226,7 +226,7 @@ def process_frame(img, classifier, scaler, process_pool, track_centroids, veh_tt
 	track_bboxes, track_centroids, veh_ttl, skipped_tracks = update_centroids(track_centroids, labels, n_features, veh_ttl, skipped_tracks)
 	print(len(track_bboxes), "cars found!")
 
-	bgr_image = cv2.cvtColor(img, cv2.COLOR_LUV2RGB)
+	bgr_image = cv2.cvtColor(img, cv2.COLOR_YCrCb2RGB)
 	#new_img = draw_label_bboxes(bgr_image, labels, n_features)
 	new_img = draw_tracked_boxes(bgr_image, track_bboxes)
 
