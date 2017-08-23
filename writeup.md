@@ -88,6 +88,13 @@ Ultimately, extracting the HOG, histogram and spatially binned color features fr
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](https://drive.google.com/open?id=0Bxtv1dvjqwk7Vk54dXNjVmM2UjQ)
 
+##### UPDATE 22-8-2017
+
+I have updated my implementation and uploaded a new [video](https://drive.google.com/open?id=0Bxtv1dvjqwk7U0RNZnN2M0VBSnc). There should be a lesser false positive and false negatives. I made the changes based on the suggestions 
+
+1. using yCrCb color space instead of LUV.
+2. Scrapping the use of "tracking" (item 3 in the following section) and using a temporal heatmap instead,
+
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 

@@ -155,13 +155,13 @@ def get_features(img_files):
     X3 = get_spatial_features(imgs)
 
     X = np.hstack((X1, X2, X3))
-    #X = np.hstack((X1, X2))
+    # X = np.hstack((X1, X3))
     return X
 
 def scale_features(X):
     scaler = StandardScaler().fit(X)
     X = scaler.transform(X)
-    return X, scaler        
+    return X, scaler
 
 def get_cls(X, y):
     #return svm.SVC() 
@@ -250,7 +250,7 @@ def mkclassifier(filename):
     print("saved model to ", filename)
 
 if __name__ == '__main__':
-    evaluate_cls()
+    # evaluate_cls()
     #do_gridsearch()
     mkclassifier("../models/model_liblinear_ycrcb.dat")
     #do_learning_curve()
